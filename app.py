@@ -1,7 +1,13 @@
 
 
 import streamlit as st
-from dotenv import load_dotenv
+# Cargar variables de entorno para desarrollo local.
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # En la nube, las variables se cargan de forma segura, así que esto es normal.
+    pass
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain_community.vectorstores import Chroma
 from langchain_core.messages import SystemMessage, HumanMessage
@@ -16,8 +22,7 @@ DOCS_PATH = "docs/"
 EMBEDDING_MODEL_NAME = "mixedbread-ai/mxbai-embed-large-v1"
 LLM_REPO_ID = "moonshotai/Kimi-K2-Instruct"
 
-# Cargar variables de entorno
-load_dotenv()
+
 
 # --- VERIFICACIÓN DEL API TOKEN ---
 if not os.environ.get("HUGGINGFACEHUB_API_TOKEN"):
